@@ -1,1 +1,5 @@
-# consensus_challenge
+minikube start
+eval $(minikube docker-env)
+
+
+minikube tunnel
