@@ -27,6 +27,8 @@ spec:
           env:
           - name: NODE
             value: $node
+          - name: TYPE
+            value: $type
       volumes:
         - name: $node
           persistentVolumeClaim:

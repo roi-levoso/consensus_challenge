@@ -6,6 +6,10 @@ import uvicorn
 import os
 import asyncio
 import json
+import multiprocessing
+import time
+import random
+import sys
 
 from utils import delay_machine, perform_operation, send_request
 
@@ -66,7 +70,18 @@ async def get_leader():
     global leader
     async with asyncio.Lock():
         return {"result" :leader}
-
+def run():
+    uvicorn.run('main:app', host='0.0.0.0', port=8000, reload=False, root_path="/")
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', host='0.0.0.0', port=8000, reload=False, root_path="/")
+    p = multiprocessing.Process(target=run, name="Run")
+    p.start()
+    if os.getenv("TYPE") == "DESTROYER":
+        time.sleep(random.randint(30, 150))
+        p.terminate()
+        p.join()
+        raise SystemExit()
+    
+    
+
+    

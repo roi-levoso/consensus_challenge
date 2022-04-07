@@ -39,13 +39,23 @@ async def read():
         type="GET")
     return result
 
+@app.get("/read-all")
+async def read_all():
+    responses = []
+    for node in NODE_LIST:
+        url = f"http://{node}:8080" + "/read"
+        result = await send_request(host=url,
+            type="GET")
+        responses.append(result)
+    return responses
+
 @app.post("/write")
 async def write(operation: Operation):
     for node in NODE_LIST:
         url = f"http://{node}:8080" + "/write"
         result = await send_request(host=url,
         type="POST",
-        data={"op": operation.op,"value": operation.value, "requester": "client"})
+        data={"op": operation.op,"value": operation.value, "requester": "client"})     
     return result
 
 async def send_request(host: str, type: str, data=None):

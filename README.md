@@ -1,6 +1,6 @@
 Welcome to the consensus challenge. This playground project contains the following scenario:
 
-
+![alt text](Consensus challenge.drawio.png)
 
 Nodes: Contains the logic of the system. All the nodes can write the operations into one file(the database) and perform the operations. The leader is in charge of replicating the data into the rest of nodes. A node can also answer a read and 
 
@@ -24,6 +24,8 @@ Basically we need to deploy two things, nodes and orchestrator. For hat wee have
 
 - Deploy nodes
 `make deploy-nodes`
+* If we want to enable destroyer mode to work on leader election run the following:
+`make type=DESTROYER deploy-nodes`
 - Deploy orchestrator
 `make deploy-orchestrator`
 
@@ -42,3 +44,4 @@ You can access nodes terminal by using the following command
 `kubectl exec --stdin --tty $(kubectl get pod -l app=<NAME> -o jsonpath="{.items[0].metadata.name}") -- /bin/bash`
 
 Where NAME is node1, node2, node3 or orchestrator depending on the pod you want to access 
+
