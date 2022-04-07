@@ -6,6 +6,7 @@ import uvicorn
 import json
 import httpx
 from uvicorn.config import LOGGING_CONFIG
+import random
 
 
 NODE_LIST = ["node1", "node2", "node3"]
@@ -28,6 +29,14 @@ async def clear():
     for node in NODE_LIST:
         url = f"http://{node}:8080" + "/clear"
         result = await send_request(host=url, type="GET")
+    return result
+
+@app.get("/read")
+async def read():
+    node = random.choice(NODE_LIST)
+    url = f"http://{node}:8080" + "/read"
+    result = await send_request(host=url,
+        type="GET")
     return result
 
 @app.post("/write")

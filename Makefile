@@ -8,6 +8,8 @@ deploy-nodes:
 		export node ; \
 		envsubst < node/k8s.yaml | kubectl apply -f -  ; \
 	done
+deploy-orchestrator:
+	kubectl apply -f orchestrator/k8s.yaml	
 show:
 	for node in node1 node2 node3 ; do \
 		export node ; \
@@ -32,5 +34,10 @@ run-clients:
 	python client/main.py &
 	wait
 restart-all: restart-nodes restart-orchestrator
+
 clear:
 	curl http://127.0.0.1:80/clear
+
+
+	
+	
